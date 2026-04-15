@@ -37,3 +37,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# 测试报告、日志
+allure/
+allure-results/
+allure-report/
+logs/
+*.log
