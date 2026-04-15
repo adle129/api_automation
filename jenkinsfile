@@ -1,35 +1,25 @@
-pipeline{
+pipeline {
     agent any
     tools {
         jdk 'jdk17'
-        maven 'maven39'
+        maven 'maven3'
         allure 'allure'
     }
     stages {
-        stage('pull code'){
-            steps{
-                git url: 'https://github.com/adle129/api_automation.git', branch: 'main'
-            }
-        }
-        stage('Maven create and execute testing'){
+        stage('Test') {
             steps {
-                sh 'mvn clean test'
+                bat 'mvn clean test'
             }
-
         }
-        stage('Generate Allure report'){
-            steps{
-                allure includeProperties: false, jdk: 'jdk17', results:[[path: 'allure-results']]
+        stage('Report') {
+            steps {
+                allure results: [[path: 'allure-results']]
             }
         }
     }
     post {
         always {
-            allure includeProperties: false, jdk: 'jdk17', results: [[path: 'allure-results']]
+            allure results: [[path: 'allure-results']]
         }
     }
-
-
-
-
 }
